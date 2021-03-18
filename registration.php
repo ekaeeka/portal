@@ -1,3 +1,44 @@
+<?php
+session_start();
+require_once 'connection.php';
+
+
+$name = $_POST['name'];
+$last_name = $_POST['last_name'];
+$email = $_POST['email'];
+$password = $_POST['password'];
+$password_two = $_POST['password_two'];
+
+if (!empty($_POST)) {
+
+
+    if ((empty($name) || empty($last_name) || empty($email) || empty($password))) {
+        die("Не все данные введены");
+    }
+
+    $result = mysqli_query($connection, "SELECT count(id) as 'em' FROM `user` WHERE email=$email"); //> 0" // выбросить ошибку
+
+    $count = 0;
+    while ($row = mysqli_fetch_array($result,MYSQLI_NUM)) {
+        $count = $row['email'];
+    }
+    var_dump($count);
+
+    if ($password === $password_two) {
+
+        $password = md5($password);
+
+
+        mysqli_query($connection, "INSERT INTO `user` (`id`, `name`, `last_name`, `email`, `password`, `type`) VALUES (NULL, '$name', '$last_name', '$email', '$password', 1)");
+
+        header('Location: index.php');
+    } else {
+
+        $_SESSION['message'] = "Пароли не совпадают";
+    }
+} else {
+    echo <<<HTML
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,19 +69,24 @@
         <label for="">Повторите пароль</label>
         <input type="password" name="password_two" placeholder="введите пароль">
 
-        <button>Зарегистрироваться</button>
+        <input type="submit" name="butt" class="button" placeholder="Зарегистрироваться">
 
         <p>Уже есть аккаунт? - <a href="index.php">Войти</a></p>
-
-
-            <?php
-            if ($_SESSION['message']){
-                echo '<p class="error_message"> '. $_SESSION['message'] .'</p>';
-            }
-            unset($_SESSION['message']);
-            ?>
-
-    </form>
+        
+            </form>
 </div>
 </body>
 </html>
+
+HTML;
+
+}
+
+//        <?php
+//        if ($_SESSION['message']) {
+//            echo '<p class="error_message"> ' . $_SESSION['message'] . '</p>';
+//        }
+//        unset($_SESSION['message']);
+//        ?>
+
+
