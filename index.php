@@ -17,7 +17,6 @@
         <input type="text" placeholder="Введите логин">
         <label for="">Пароль</label>
         <input type="password" placeholder="Введите пароль">
-        <input type="password" placeholder="Повторите пароль">
         <button>
             Войти
         </button>

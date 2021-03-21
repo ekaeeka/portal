@@ -8,37 +8,44 @@ $last_name = $_POST['last_name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 $password_two = $_POST['password_two'];
+$errors = [];
+
+//if (strlen($_POST['password'])<10){
+//    $e
+//}
 
 if (!empty($_POST)) {
 
 
     if ((empty($name) || empty($last_name) || empty($email) || empty($password))) {
-        die("Не все данные введены");
+        $errors[] = "Не все данные введены";
     }
+    else{
 
-    $result = mysqli_query($connection, "SELECT count(id) as 'em' FROM `user` WHERE email=$email"); //> 0" // выбросить ошибку
+        
 
-    $count = 0;
-    while ($row = mysqli_fetch_array($result,MYSQLI_NUM)) {
-        $count = $row['email'];
+        if ($result = mysqli_query($connection, "SELECT id  FROM `user` WHERE email='$email'")->num_rows){
+            $errors[] = "Такой мейл существует";
+        }
+        else{
+            if ($password === $password_two) {
+
+                $password = md5($password);
+
+
+
+                mysqli_query($connection, "INSERT INTO `user` (`id`, `name`, `last_name`, `email`, `password`, `type`) VALUES (NULL, '$name', '$last_name', '$email', '$password', 1)");
+
+                $ok = true;
+            } else {
+
+               $errors[] = "Пароли не совпадают";
+            }
+        }
+
     }
-    var_dump($count);
-
-    if ($password === $password_two) {
-
-        $password = md5($password);
-
-
-        mysqli_query($connection, "INSERT INTO `user` (`id`, `name`, `last_name`, `email`, `password`, `type`) VALUES (NULL, '$name', '$last_name', '$email', '$password', 1)");
-
-        header('Location: index.php');
-    } else {
-
-        $_SESSION['message'] = "Пароли не совпадают";
-    }
-} else {
-    echo <<<HTML
-
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -75,18 +82,26 @@ if (!empty($_POST)) {
         
             </form>
 </div>
+<?php if ($errors):?>
+<div class="errors">
+    <?php
+     foreach ($errors as $error){
+         echo "<div class='error_message'>$error</div>";
+     }
+    ?>
+</div>
+<?php endif;?>
+
+<?php if($ok):?>
+<div class="page">
+    <a href="index.php">Вы зарегистрированны,войдите</a>
+</div>
+<?php endif;?>
 </body>
 </html>
 
-HTML;
 
-}
 
-//        <?php
-//        if ($_SESSION['message']) {
-//            echo '<p class="error_message"> ' . $_SESSION['message'] . '</p>';
-//        }
-//        unset($_SESSION['message']);
-//        ?>
+
 
 
