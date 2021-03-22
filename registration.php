@@ -19,32 +19,33 @@ if (!empty($_POST)) {
 
     if ((empty($name) || empty($last_name) || empty($email) || empty($password))) {
         $errors[] = "Не все данные введены";
-    }
-    else{
+    } else {
 
-        
-
-        if ($result = mysqli_query($connection, "SELECT id  FROM `user` WHERE email='$email'")->num_rows){
-            $errors[] = "Такой мейл существует";
-        }
-        else{
-            if ($password === $password_two) {
-
-                $password = md5($password);
-
-
-
-                mysqli_query($connection, "INSERT INTO `user` (`id`, `name`, `last_name`, `email`, `password`, `type`) VALUES (NULL, '$name', '$last_name', '$email', '$password', 1)");
-
-                $ok = true;
+        if ((strlen($name) <2 )|| (strlen($last_name) < 2)) {
+            $errors[] = "Имя и/или фамилия слишком короткие";
+        } else {
+            if ($result = mysqli_query($connection, "SELECT id  FROM `user` WHERE email='$email'")->num_rows) {
+                $errors[] = "Такой мейл существует";
             } else {
+                if (strlen($password) < 5) {
+                    $errors[] = "Пароль ненадёжный!";
+                } else {
+                    if ($password === $password_two) {
+                        $password = md5($password);
 
-               $errors[] = "Пароли не совпадают";
+                        mysqli_query($connection, "INSERT INTO `user` (`id`, `name`, `last_name`, `email`, `password`, `type`) VALUES (NULL, '$name', '$last_name', '$email', '$password', 1)");
+
+                        $ok = true;
+                    } else {
+
+                        $errors[] = "Пароли не совпадают";
+                    }
+                }
             }
         }
-
     }
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -79,29 +80,24 @@ if (!empty($_POST)) {
         <input type="submit" name="butt" class="button" placeholder="Зарегистрироваться">
 
         <p>Уже есть аккаунт? - <a href="index.php">Войти</a></p>
-        
-            </form>
-</div>
-<?php if ($errors):?>
-<div class="errors">
-    <?php
-     foreach ($errors as $error){
-         echo "<div class='error_message'>$error</div>";
-     }
-    ?>
-</div>
-<?php endif;?>
 
-<?php if($ok):?>
-<div class="page">
-    <a href="index.php">Вы зарегистрированны,войдите</a>
+    </form>
 </div>
-<?php endif;?>
+<?php if ($errors): ?>
+    <div class="errors">
+        <?php
+        foreach ($errors as $error) {
+            echo "<div class='error_message'>$error</div>";
+        }
+        ?>
+    </div>
+<?php endif; ?>
+
+<?php if ($ok): ?>
+    <div class="page">
+        <a href="index.php">Вы зарегистрированны,войдите</a>
+    </div>
+<?php endif; ?>
 </body>
 </html>
-
-
-
-
-
 
