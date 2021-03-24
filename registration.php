@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'connection.php';
+var_dump($_SESSION);
 
 
 $name = $_POST['name'];
@@ -31,7 +32,7 @@ if (!empty($_POST)) {
                     $errors[] = "Пароль ненадёжный!";
                 } else {
                     if ($password === $password_two) {
-                        $password = md5($password);
+                        $password = password_hash($password, PASSWORD_BCRYPT);
 
                         mysqli_query($connection, "INSERT INTO `user` (`id`, `name`, `last_name`, `email`, `password`, `type`) VALUES (NULL, '$name', '$last_name', '$email', '$password', 1)");
 
@@ -80,7 +81,6 @@ if (!empty($_POST)) {
         <input type="submit" name="butt" class="button" placeholder="Зарегистрироваться">
 
         <p>Уже есть аккаунт? - <a href="index.php">Войти</a></p>
-
     </form>
 </div>
 <?php if ($errors): ?>
