@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'connection.php';
-var_dump($_SESSION);
+//var_dump($_SESSION);
 
 
 $name = $_POST['name'];
@@ -22,7 +22,7 @@ if (!empty($_POST)) {
         $errors[] = "Не все данные введены";
     } else {
 
-        if ((strlen($name) <2 )|| (strlen($last_name) < 2)) {
+        if ((strlen($name) < 2) || (strlen($last_name) < 2)) {
             $errors[] = "Имя и/или фамилия слишком короткие";
         } else {
             if ($result = mysqli_query($connection, "SELECT id  FROM `user` WHERE email='$email'")->num_rows) {
@@ -46,8 +46,8 @@ if (!empty($_POST)) {
         }
     }
 }
-
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -55,12 +55,13 @@ if (!empty($_POST)) {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="php/registration.php">
     <title>Регистрация</title>
 </head>
 <body>
 <div class="form-registr">
-    <form action="registration.php" method="post">
+    <form action="php/registration.php" method="post">
         <h1>Регистрация</h1>
         <br>
         <label for="">Ваше имя</label>
@@ -80,9 +81,10 @@ if (!empty($_POST)) {
 
         <input type="submit" name="butt" class="button" placeholder="Зарегистрироваться">
 
-        <p>Уже есть аккаунт? - <a href="index.php">Войти</a></p>
+        <p>Уже есть аккаунт? - <a href="login.php">Войти</a></p>
     </form>
 </div>
+
 <?php if ($errors): ?>
     <div class="errors">
         <?php
@@ -91,13 +93,15 @@ if (!empty($_POST)) {
         }
         ?>
     </div>
-<?php endif; ?>
+<?php endif;?>
 
 <?php if ($ok): ?>
     <div class="page">
-        <a href="index.php">Вы зарегистрированны,войдите</a>
+        <a href="login.php">Вы зарегистрированны,войдите</a>
     </div>
 <?php endif; ?>
 </body>
 </html>
+
+
 
