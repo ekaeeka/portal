@@ -2,7 +2,7 @@
 
 $serverName = 'localhost';
 $userName = 'root';
-$password = 'root';
+$password = null;
 $nameDB='portal';
 
 

@@ -4,9 +4,9 @@
 }
 
 body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
     font-family: "Century Gothic", sans-serif;
 }
 
@@ -48,3 +48,74 @@ button{
 .error_message{
     padding: 10px;
 }
+
+header{
+    background: url("../img/andreas-city.jpg")no-repeat center/cover;
+    /*width: 80%;*/
+}
+
+.logo img{
+    width: 19%;
+    margin-left: 10%;
+}
+
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.enter img{
+    width: 12%;
+}
+
+.menu a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 20px;
+}
+
+.content{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 5%;
+}
+
+.button{
+    padding: 10px;
+    width: 54%;
+}
+
+.request{
+    background: #fff;
+    width: 30%;
+    padding: 10px 10px 10px 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 10%;
+    margin-left: 35%;
+}
+
+.request h1{
+    margin-bottom: 10px;
+}
+
+footer{
+    background: #000;
+}
+
+.content-footer{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10%;
+}
+
+.text-1,
+.text-2 p{
+    color: white;
+    font-size: 10px;
+}
+
+

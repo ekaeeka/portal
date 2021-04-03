@@ -11,9 +11,7 @@ $password = $_POST['password'];
 $password_two = $_POST['password_two'];
 $errors = [];
 
-//if (strlen($_POST['password'])<10){
-//    $e
-//}
+
 
 if (!empty($_POST)) {
 

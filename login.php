@@ -6,21 +6,23 @@ $errors = [];
 $email = $_POST['email'];
 $password = $_POST['password'];
 
+
 if (isset($_POST['butt'])) {
     if (!empty($_POST)) {
 
         if ((empty($_POST['email']) || empty($_POST['password']))) {
-//            echo "первый шаг";
+
             $errors[] = "Не все данные введены";
         } else {
             $result = mysqli_query($connection, "SELECT * FROM `user` WHERE email='$email'")->fetch_assoc();
-//            var_dump($result);
+
 
             if (!empty($result)) {
 
                 if (password_verify($_POST['password'], $result['password'])) {
                     $_SESSION['name'] = $result['name'];
                     $_SESSION['last_name'] = $result['last_name'];
+                    $_SESSION['id'] = $result['id'];
 
                     $ok = true;
 
