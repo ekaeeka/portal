@@ -29,7 +29,7 @@ require_once 'connection.php';
             </div>
 
             <div class="enter">
-                <a href="signup.php"><img src="img/user.png" alt=""></a>
+                <a href="registration.php"><img src="img/user.png" alt=""></a>
             </div>
         </div>
     </div>

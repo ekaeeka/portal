@@ -54,12 +54,12 @@ if (!empty($_POST)) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="php/registration.php">
+    <link rel="stylesheet" href="registration.php">
     <title>Регистрация</title>
 </head>
 <body>
 <div class="form-registr">
-    <form action="php/registration.php" method="post">
+    <form action="registration.php" method="post">
         <h1>Регистрация</h1>
         <br>
         <label for="">Ваше имя</label>

@@ -1,30 +1,57 @@
 <?php
 session_start();
-
+ini_set('file_uploads', 'On');
 require('connection.php');
-$user_id = $_SESSION['id'];
-$category_id = $_SESSION['name'];
+
+$user_id = (int)$_SESSION['id'];
+$category_id = $_POST['category'];
 $name = $_POST['name'];
-$text = $_POST['text'];
-$img = $_POST['img'];
-$datetime = date('Y-m-d', time());
-$status_id = $_SESSION['name'];
+$text = $_POST['text-problem'];
+$img = $_FILES['img'];
+$datetime = date('Y-m-d H:i:s', time());
+$status_id = 1;
+$errors = [];
 
-
+var_dump($img);
 if (!empty($_POST))
 
-    if ((empty($name) || empty($text) || empty($img))) {
+    if (empty($name) || empty($text) || empty($img) || empty($category_id)) {
         $errors[] = "Не все данные введены";
     } else {
 
-        $result = mysqli_query($connection, "INSERT INTO `application` (`id`, `name`, `text`, `img`, `user_id`, `date_time`,`status_id`,`category_id
-`) VALUES (NULL, '$name', '$text', '$img','$user_id','$datetime', '$status_id', '$category_id'");
+        if (($category_id == 1) || ($category_id == 3) || ($category_id == 5)) {
 
-        $okay = true;
+            if (($img['type'] === 'image/jpeg') || ($img['type'] === 'image/bmp') || (($img['type'] === 'image/png') || (($img['type'] === 'image/jpg')))) {
+
+                if ($img['size'] < 10485760) {
+
+                    if (!$img['error']){
+
+                        $imgName = $img['name'];
+                        $result = mysqli_query($connection, "INSERT INTO `application`(`id`, `name`, `text`, `img`, `category_id`, `user_id`, `status_id`, `date_time`, `img_after`) VALUES (NULL ,'$name','$text','$imgName','$category_id','$user_id','$status_id','$datetime',NULL)");
+                        var_dump(mysqli_error($connection));
+                        if ($result){
+                            echo "фывфывыфвыфв";
+                            move_uploaded_file($img['tmp_name'], 'upload_img/'.$img['name']);
+                        }
+                        else{
+                            $errors[] = "Тестовая";
+                        }
+
+                    }
 
 
-//    $errors = 'Вы отправили заявку';
-//    "<div><a href='index.php'></a></div>";
+                } else {
+                    $errors[] = 'Файл слишком большой';
+                }
+
+            } else {
+                $errors[] = 'Ошибка при добавлении фотографии';
+            }
+
+        } else {
+            $errors[] = 'Введите существующую категорию';
+        }
     }
 
 ?>
@@ -59,21 +86,23 @@ if (!empty($_POST))
                 <a href="signup.php"><img src="img/user.png" alt=""></a>
             </div>
         </div>
-        <div class="request">
-            <h1>Оставьте заявку</h1>
-            <label>Название заявки</label><br>
-            <input type="text" placeholder="Название заявки" name="name"><br>
-            <label>Описание проблемы</label><br>
-            <input type="text" placeholder="Проблема" name="text-problem"><br>
-            <label>Прикрепите фотографию</label><br>
-            <input type="file" name="img" value="Прикрепить"><br>
-            <label>Выберите категорию</label><br>
-            <input type="checkbox" name="category-1">Дороги<br>
-            <input type="checkbox" name="category-2">Животные<br>
-            <input type="checkbox" name="category-3">Здания<br>
-            <button type="submit" name="go" class="button">Отправить</button>
-            <br>
-        </div>
+        <form action="request.php" method="post" enctype="multipart/form-data">
+            <div class="request">
+                <h1>Оставьте заявку</h1>
+                <label>Название заявки</label><br>
+                <input type="text" placeholder="Название заявки" name="name"><br>
+                <label>Описание проблемы</label><br>
+                <input type="text" placeholder="Проблема" name="text-problem"><br>
+                <label>Прикрепите фотографию</label><br>
+                <input type="file" name="img" value="Прикрепить"><br>
+                <label>Выберите категорию</label><br>
+                <input type="radio" name="category" value="1">Дороги<br>
+                <input type="radio" name="category" value="3">Животные<br>
+                <input type="radio" name="category" value="5">Здания<br>
+                <button type="submit" name="go" class="button">Отправить</button>
+                <br>
+            </div>
+        </form>
     </div>
 
     <footer>
@@ -93,11 +122,20 @@ if (!empty($_POST))
                         Оставить заявку<br>
                     </p>
                 </div>
-
             </div>
         </div>
     </footer>
 </header>
+<?php if ($errors): ?>
+    <div class="errors">
+        <?php
+        foreach ($errors as $error) {
+            echo "<div class='error_message'>$error</div>";
+        }
+        ?>
+    </div>
+<?php endif;?>
+
 </body>
 </html>
 
