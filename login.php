@@ -28,8 +28,12 @@ if (isset($_POST['butt'])) {
                     $_SESSION['id'] = $result['id'];
 
                     $ok = true;
-
-                    header("Location: my_application.php");
+                    if($_SESSION['type']==1){
+                        header("Location: my_application.php");
+                    }
+                    else{
+                        header('Location: admin/index.php');
+                    }
 
                 } else {
                     $errors[] = "Неверный пароль";

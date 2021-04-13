@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 07 2021 г., 23:47
+-- Время создания: Апр 14 2021 г., 02:38
 -- Версия сервера: 10.2.22-MariaDB
 -- Версия PHP: 7.2.22
 
@@ -46,8 +46,6 @@ CREATE TABLE `application` (
 
 INSERT INTO `application` (`id`, `name`, `text`, `img`, `user_id`, `date_time`, `status_id`, `category_id`, `img_after`) VALUES
 (1, 'ямы', 'Ужасные ямы на дорогах решите проблему!!!!', 'ben-white-qDY9ahp0Mto-unsplash.jpg', 52, '2021-04-05 17:43:14', 1, 1, NULL),
-(2, 'мы', 'Ужасные ямы на дорогах решите проблему!!!!', 'фасад недочищенный.jpg', 55, '2021-04-06 09:36:52', 1, 1, NULL),
-(3, 'ямы', 'Ужасные ямы на дорогах решите проблему!!!!', 'фасад недочищенный.jpg', 55, '2021-04-06 09:37:39', 1, 1, NULL),
 (4, 'животные', 'Много бродячих собак, решите проблему', 'фасад недочищенный.jpg', 55, '2021-04-06 12:04:12', 1, 3, NULL),
 (7, 'Дом в ужасном стостоянии', 'СТРАШНО ЖИТЬ! Дом просто в ужасном состоянии, пожалуйста, примите меры!', 'jpgreret.png', 55, '2021-04-07 18:28:47', 1, 3, NULL);
 
@@ -119,11 +117,11 @@ INSERT INTO `user` (`id`, `name`, `last_name`, `email`, `password`, `type`) VALU
 (46, 'Ян', 'яныч', 'asddsa@mail.ru', '202cb962ac59075b964b07152d234b70', 1),
 (47, 'Kate', 'kate', 'rewrew@mail.ru', '827ccb0eea8a706c4c34a16891f84e7b', 1),
 (48, 'яшка', 'никитич', 'hgfffghgf@mail.ru', 'e10adc3949ba59abbe56e057f20f883e', 1),
-(51, 'Екатерина', 'яшкина', 'ekaeka@mail.ru', '', 1),
 (52, 'Святослав', 'Раневский', 'popopopo@mail.ru', '$2y$10$fGMHHPIYwQOsQdg8pdlzLO8GAA9drjn4OMSVZaWH8SZm42tz410jm', 1),
 (53, 'Леонид', 'яшкин', 'hghghg@mail.ru', '$2y$10$NMvnmYk0T3yRK87SjDWxXe9hJoD7SUuEAECYEn49RpdhijVtqqvqO', 1),
 (54, 'владислав', 'добрынин', 'cokadel@mail.ru', '$2y$10$5iO5A9ffFuC5fOKi/WggEecSH2pC7MA2bsrz7lTnPH8Ti.dsz3UXq', 1),
-(55, 'Оксана', 'орифлейм', 'oriflame@mail.ru', '$2y$10$vDIpiegbXugbIkI5ht0Z/ekAALvo7RPUFc9dqPUztXix3o9Dm.wX2', 1);
+(55, 'Оксана', 'орифлейм', 'oriflame@mail.ru', '$2y$10$vDIpiegbXugbIkI5ht0Z/ekAALvo7RPUFc9dqPUztXix3o9Dm.wX2', 1),
+(60, 'Администратор', 'портала', 'admin', '$2y$10$M5hGg2.joSt8ihu/VB4nNuWt4y.BXEfd6AAmtOr.2xh/En2Uge.X2', 2);
 
 -- --------------------------------------------------------
 
@@ -208,7 +206,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT для таблицы `user_type`

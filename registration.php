@@ -105,7 +105,7 @@ if (!empty($_POST)) {
                     <input type="text" name="last_name" placeholder="введите фамилию">
 
                     <label for="">Ваш email</label>
-                    <input type="email" name="email" placeholder="введите email">
+                    <input type="text" name="email" placeholder="введите email">
 
                     <label for="">придумайте пароль</label>
                     <input type="password" name="password" placeholder="введите пароль">

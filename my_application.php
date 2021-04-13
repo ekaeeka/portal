@@ -67,7 +67,8 @@ if ($user_id == null) {
             </div>
             <?php
             foreach ($result as $results) {
-                echo "<form method='post'><div class='request-style'>
+
+                echo "<div class='request-style'>
                       <h4>Категория заявки: </h4> " . $results[6] . "<br> 
                       <h4>Название:</h4> " . $results[1] . "<br>
                       <h4> Статус заявки: </h4> " . $results[7] . "<br> 
@@ -75,7 +76,7 @@ if ($user_id == null) {
                       <h4>Описание проблемы:</h4>" . $results[2] . "</p><br> 
                       <h4>Автор:</h4>" . $_SESSION['name'] . " <br>
                       <h4>Дата публикации:</h4>" . $results[5] . "<br> 
-                      <button name='go-delete' type='submit' class='delete_request_button'>Удалить заявку</button></div></form>";
+                      <a href='delete_my_request.php?id=".$results[0]."' class='delete_request_button'>Удалить заявку</a></div>";
             }
 
             ?>

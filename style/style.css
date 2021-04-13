@@ -238,7 +238,7 @@ footer {
 .request-style{
     background: #ffffff;
     width: 40%;
-    padding: 20px 20px 20px 20px;
+    padding: 20px 20px 50px 20px;
     border-radius: 10px;
     margin-top: 7%;
     margin-left: 30%;
@@ -268,12 +268,17 @@ footer {
     width: 70%;
 }
 
+.delete_request_button a{
+    margin-top: 4%;
+}
+
 .delete_request_button{
     border: none;
     background: coral;
-    color: white;
     padding: 10px 10px 10px 10px;
     border-radius: 5px;
-    margin-top: 10px;
+    text-decoration: none;
+    color: white;
+    margin-top: 30px;
 }
 
